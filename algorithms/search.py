@@ -44,9 +44,24 @@ def uniformCostSearch(problem: SearchProblem):
     """
     Search the node of least total cost first.
     """
-
-    # TODO: Add your code here
-    utils.raiseNotDefined()
+    puntos= utils.PriorityQueue()
+    estado_I= problem.getStartState()
+    puntos.push((estado_I,[],0),0)
+    visitado={}
+    while puntos.isEmpty()!= True:
+        estado, pasos, costo= puntos.pop()
+        if estado in visitado and visitado[estado] <= costo:
+            continue
+        visitado[estado]=costo
+        if problem.isGoalState(estado):
+            return pasos
+        for sig, paso, n_costo in problem.getSuccessors(estado):
+            sum= costo+n_costo
+            pasos_sig= pasos+[paso] 
+            puntos.push((sig, pasos_sig, sum), sum)
+    return[]
+            
+    
 
 
 def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
