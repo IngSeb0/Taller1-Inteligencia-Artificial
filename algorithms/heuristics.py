@@ -32,6 +32,9 @@ def euclideanHeuristic(state, problem):
 
 
 def survivorHeuristic(state: Tuple[Tuple, Any], problem: MultiSurvivorProblem):
+    
+
+    
     """
     Your heuristic for the MultiSurvivorProblem.
 
@@ -39,12 +42,18 @@ def survivorHeuristic(state: Tuple[Tuple, Any], problem: MultiSurvivorProblem):
     problem: MultiSurvivorProblem instance
 
     This must be admissible and preferably consistent.
-
-    Hints:
-    - Use problem.heuristicInfo to cache expensive computations
-    - Go with some simple heuristics first, then build up to more complex ones
-    - Consider: distance to nearest survivor + MST of remaining survivors
-    - Balance heuristic strength vs. computation time (do experiments!)
     """
-    # TODO: Add your code here
-    utils.raiseNotDefined()
+    posicion, sobrevivientes = state
+    
+    # Si no quedan sobrevivientes, la heurística es 0
+    sobrevivientes_restantes = sobrevivientes.asList()
+    if len(sobrevivientes_restantes) == 0:
+        return 0
+    
+    distancia_minima = float('inf')
+    for sobreviviente in sobrevivientes_restantes:
+        distancia = abs(posicion[0] - sobreviviente[0]) + abs(posicion[1] - sobreviviente[1])
+        if distancia < distancia_minima:
+            distancia_minima = distancia
+    
+    return distancia_minima
