@@ -28,16 +28,51 @@ def depthFirstSearch(problem: SearchProblem):
     print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
-    # TODO: Add your code here
-    utils.raiseNotDefined()
+    
+    pila = utils.Stack()
+    visitados = set()
+
+    prim_estado = (problem.getStartState(), [])
+    pila.push(prim_estado)
+
+    while not pila.isEmpty():
+        estado, camino = pila.pop()
+        if problem.isGoalState(estado):
+            return camino
+
+        if estado not in visitados:
+            visitados.add(estado)
+
+            succ = problem.getSuccessors(estado)
+            for i, mov, cost in succ:
+                pila.push((i, camino+[mov]))
+
+    return []
 
 
 def breadthFirstSearch(problem: SearchProblem):
     """
     Search the shallowest nodes in the search tree first.
     """
-    # TODO: Add your code here
-    utils.raiseNotDefined()
+    cola = utils.Queue()
+    visitados = set()
+
+    prim_estado = (problem.getStartState(), [])
+    cola.push(prim_estado)
+
+    while not cola.isEmpty():
+        estado, camino = cola.pop()
+        if problem.isGoalState(estado):
+            return camino
+
+        if estado not in visitados:
+            visitados.add(estado)
+
+            succ = problem.getSuccessors(estado)
+            for i, mov, cost in succ:
+                cola.push((i, camino+[mov]))
+
+    return []
 
 
 def uniformCostSearch(problem: SearchProblem):
