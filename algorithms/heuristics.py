@@ -32,8 +32,7 @@ def euclideanHeuristic(state, problem):
 
 
 def survivorHeuristic(state: Tuple[Tuple, Any], problem: MultiSurvivorProblem):
-  """
-
+    """
     state: (position, survivors_grid)
     problem: MultiSurvivorProblem instance
 
